@@ -19,6 +19,7 @@ This repository contains my declarative system configuration managed with Nix Ho
 ```
 .
 ├── flake.nix              # Flake definition with inputs and outputs
+├── config.nix             # User-specific configuration (customize this!)
 ├── home.nix               # Main home configuration (user settings, packages, GTK)
 └── modules/
     ├── default.nix        # Module entry point (imports all modules)
@@ -60,11 +61,13 @@ experimental-features = nix-command flakes
 
 2. **Update configuration:**
 
-   Edit `home.nix` to customize:
-   - Username and home directory (lines 11-12)
-   - Display outputs for Sway (lines 304-305)
-   - Wallpaper paths (lines 281, 303)
-   - Any other personal preferences
+   Edit `config.nix` to customize your settings:
+   - Username and home directory
+   - Display outputs (monitor names for Sway)
+   - Wallpaper and screenshot paths
+   - Sway modifier key and resize amount
+
+   The configuration is centralized in `config.nix` for easy customization.
 
 3. **Build and activate:**
 

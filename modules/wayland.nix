@@ -1,14 +1,10 @@
 { pkgs, lib, config, ... }:
 let
-  # Wallpaper configuration
-  wallpaperLoc = "$HOME/Documents/wallpapers/nix-wallpaper-gear.png";
-
-  # Display configuration
-  disp1 = "DP-3";
-  disp2 = "HDMI-A-5";
-
-  # Resize amount for window resizing
-  resizeAmount = "20";
+  userConfig = import ../config.nix;
+  wallpaperLoc = userConfig.paths.wallpaper;
+  disp1 = userConfig.displays.primary;
+  disp2 = userConfig.displays.secondary;
+  resizeAmount = userConfig.sway.resizeAmount;
 in
 {
   # Swaylock screen locking
@@ -34,7 +30,7 @@ in
     extraOptions = [ "--unsupported-gpu" ];
 
     config = rec {
-      modifier = "Mod1";
+      modifier = userConfig.sway.modKey;
       terminal = "alacritty";
       startup = [
         { command = "swaybg -i ${wallpaperLoc}"; }
@@ -65,7 +61,7 @@ in
       keybindings =
         let
           modifier = config.wayland.windowManager.sway.config.modifier;
-          screenshotDir = "$HOME/screenshots";
+          screenshotDir = userConfig.paths.screenshots;
           dateFormat = "date \"+%m_%d_%y-%H_%M_%S\"";
         in
         lib.mkOptionDefault {
