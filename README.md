@@ -19,9 +19,12 @@ This repository contains my declarative system configuration managed with Nix Ho
 ```
 .
 ├── flake.nix              # Flake definition with inputs and outputs
-├── home.nix               # Main home configuration
+├── home.nix               # Main home configuration (user settings, packages, GTK)
 └── modules/
-    ├── default.nix        # Module entry point
+    ├── default.nix        # Module entry point (imports all modules)
+    ├── shell.nix          # Bash and Starship prompt configuration
+    ├── alacritty.nix      # Alacritty terminal emulator configuration
+    ├── wayland.nix        # Sway, Waybar, Wofi, and Swaylock configuration
     └── neovim/            # Neovim configuration
         ├── default.nix    # Neovim setup
         ├── options.nix    # Editor options and settings

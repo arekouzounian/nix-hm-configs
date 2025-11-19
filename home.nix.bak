@@ -1,0 +1,522 @@
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+
+{
+  # Home Manager needs a bit of information about you and the paths it should
+  # manage.
+  home.username = "arek";
+  home.homeDirectory = "/home/arek";
+
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  home.stateVersion = "24.11"; # Please read the comment before changing.
+
+  nixpkgs.config.allowUnfree = true;
+
+  # Install packages that should be available in the user environment
+  home.packages = [
+    pkgs.nerd-fonts.ubuntu-mono
+    pkgs.optifine
+    pkgs.prismlauncher
+  ];
+
+  # Manage dotfiles - currently none configured
+  # Example: home.file.".screenrc".source = ./dotfiles/screenrc;
+  home.file = { };
+
+  # Environment variables
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  # Import modular configurations
+  imports = [
+    ./modules
+  ];
+
+  # GTK and cursor theme
+  gtk.enable = true;
+  home.pointerCursor =
+    let
+      getFrom = url: hash: name: {
+        gtk.enable = true;
+        x11.enable = true;
+        name = name;
+        size = 48;
+        package = pkgs.runCommand "moveUp" { } ''
+          mkdir -p $out/share/icons
+          ln -s ${
+            fetchTarball {
+              url = url;
+              sha256 = hash;
+            }
+          } $out/share/icons/${name}
+        '';
+      };
+    in
+    getFrom "https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.7/Bibata-Modern-Ice.tar.xz"
+      "01acywlhs45hisa16ydmyq5r8zr49f7rnf6smz6k3x6avm0wsvs8"
+      "Bibata-Modern-Ice";
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+}
+  home.pointerCursor =
+    let
+      getFrom = url: hash: name: {
+        gtk.enable = true;
+        x11.enable = true;
+        name = name;
+        size = 48;
+        package = pkgs.runCommand "moveUp" { } ''
+          mkdir -p $out/share/icons
+          ln -s ${
+            fetchTarball {
+              url = url;
+              sha256 = hash;
+            }
+          } $out/share/icons/${name}
+        '';
+      };
+    in
+    getFrom "https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.7/Bibata-Modern-Ice.tar.xz"
+      "01acywlhs45hisa16ydmyq5r8zr49f7rnf6smz6k3x6avm0wsvs8"
+      "Bibata-Modern-Ice";
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  programs.bash = {
+    enable = true;
+    enableCompletion = true;
+    shellAliases = {
+      # Misc.
+      ll = "ls -lah";
+
+      # Nix
+      ccnix = "sudo $EDITOR /etc/nixos/configuration.nix";
+      cchome = "$EDITOR $HOME/.config/home-manager/home.nix";
+      bflake = "sudo nixos-rebuild switch --flake /etc/nixos#nixos-tower";
+      bhome = "home-manager switch && source ~/.bashrc";
+
+      # git
+      gst = "git status";
+      gcm = "git commit -m ";
+      gd = "git diff";
+
+      # suspend & go to swaylock
+      powernap = "swaylock && systemctl suspend";
+    };
+    profileExtra = ''
+      [ "$(tty)" = "/dev/tty1" ] && exec sway --unsupported-gpu
+    '';
+    bashrcExtra = ''
+      cd() {
+        builtin cd "$@" && ls
+      }
+
+      duck() {
+        dir="."
+        if [ $# -gt 0 ]; then
+          dir=$1
+        fi
+
+        du -hac "$dir" 2>/dev/null | tail -n 1
+      }
+
+      quack() {
+        # get all directories
+        mapfile -t dirs < <(find . -maxdepth 1 -type d)
+        longest=0
+        for dir in "''${dirs[@]}"; do
+          if [ $longest -le ''${#dir} ]; then
+            longest=''${#dir}
+          fi
+        done
+
+        # min. number of spaces to populate
+        offset=4
+
+        for dir in "''${dirs[@]}"; do
+          printf "$dir";
+          printf "%*s" $((offset + longest - ''${#dir})) "";
+          duck "$dir"
+        done
+      }
+    '';
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      general = {
+        working_directory = "$HOME";
+        live_config_reload = true;
+      };
+
+      window = {
+        opacity = 0.9;
+        blur = true;
+        title = "sudocomprehensible";
+        padding.x = 10;
+        padding.y = 10;
+        dynamic_padding = true;
+      };
+
+      font = {
+        size = 12;
+
+        normal = {
+          family = "UbuntuMono Nerd Font";
+          style = "Regular";
+        };
+
+        bold = {
+          family = "UbuntuMono Nerd Font";
+          style = "Bold";
+        };
+
+        italic = {
+          family = "UbuntuMono Nerd Font";
+          style = "Italic";
+        };
+
+        bold_italic = {
+          family = "UbuntuMono Nerd Font";
+          style = "Bold Italic";
+        };
+      };
+
+      keyboard.bindings = [
+        {
+          key = "n";
+          mods = "Control";
+          action = "CreateNewWindow";
+        }
+        {
+          key = "Enter";
+          mods = "Control";
+          action = "ToggleFullscreen";
+        }
+        {
+          key = "q";
+          mods = "Control";
+          action = "Quit";
+        }
+      ];
+
+      colors.primary.foreground = "#0bd092";
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+
+    settings = {
+      format = ''
+        ┌─$time $username@$hostname $python $git_branch $git_status 
+        ├┤$directory│$nix_shell ($cmd_duration)
+        └\$> '';
+      command_timeout = 750;
+
+      time = {
+        disabled = false;
+        format = "[$time]($style)";
+        style = "underline bold yellow";
+      };
+
+      python = {
+        format = "[(\($virtualenv\))]($style)";
+        style = "bold yellow";
+      };
+
+      nix_shell = {
+        disabled = false;
+        format = " \([$symbol$state(\($name\))]($style)\)";
+        style = "bold blue";
+      };
+
+      username = {
+        show_always = true;
+        style_user = "bold";
+        format = "[$user]($style)";
+      };
+
+      hostname = {
+        ssh_only = false;
+        format = "[$ssh_symbol$hostname]($style)";
+        style = "bold italic cyan";
+      };
+
+      directory = {
+        format = "[$path]($style)[$read_only]($read_only_style)";
+        style = "bold blue";
+        truncation_symbol = "🐙 ";
+      };
+
+      cmd_duration = {
+        format = "took [$duration]($style)";
+        style = "underline bold green";
+      };
+
+      git_metrics = {
+        disabled = false;
+      };
+    };
+  };
+
+  # swaylock config
+  programs.swaylock =
+    let
+      lockScreenImg = "$HOME/Documents/wallpapers/nix-wallpaper-gear.png";
+    in
+    {
+      enable = true;
+      settings = {
+        color = "808080";
+        daemonize = true;
+        image = "${lockScreenImg}";
+        font-size = 24;
+        indicator-idle-visible = false;
+        indicator-caps-lock = true;
+        indicator-radius = 100;
+        line-color = "ffffff";
+        show-failed-attempts = true;
+      };
+    };
+
+  # sway config
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.enable
+  wayland.windowManager.sway =
+    let
+      resizeAmount = "20";
+      wallpaperLoc = "$HOME/Documents/wallpapers/nix-wallpaper-gear.png";
+      disp1 = "DP-3";
+      disp2 = "HDMI-A-5";
+    in
+    {
+      enable = true;
+      # Allow running on GPUs that may not be fully supported
+      extraOptions = [ "--unsupported-gpu" ];
+
+      config = rec {
+        modifier = "Mod1";
+        terminal = "alacritty";
+        startup = [
+          { command = "swaybg -i ${wallpaperLoc}"; }
+        ];
+
+        workspaceOutputAssign = [
+          {
+            workspace = "1";
+            output = "${disp1}";
+          }
+          {
+            workspace = "2";
+            output = "${disp2}";
+          }
+        ];
+
+        fonts = {
+          names = [ "UbuntuMono Nerd Font" ];
+          style = "Bold";
+          size = 11.0;
+        };
+
+        gaps = {
+          horizontal = 8;
+          vertical = 8;
+        };
+
+        keybindings =
+          let
+            modifier = config.wayland.windowManager.sway.config.modifier;
+            screenshotDir = "$HOME/screenshots";
+            dateFormat = "date \"+%m_%d_%y-%H_%M_%S\"";
+          in
+          lib.mkOptionDefault {
+            "${modifier}+space" = "exec wofi --show=run";
+            "${modifier}+b" = "splith";
+            "${modifier}+Shift+s" =
+              "exec --no-startup-id grim -g \"$(slurp)\" ${screenshotDir}/`${dateFormat}`.png";
+          };
+
+        modes = {
+          resize = {
+            Return = "mode default";
+            Escape = "mode default";
+            Down = "resize grow height ${resizeAmount} px";
+            Left = "resize shrink width ${resizeAmount} px";
+            Right = "resize grow width ${resizeAmount} px";
+            Up = "resize shrink height ${resizeAmount} px";
+
+            j = "resize grow height ${resizeAmount} px";
+            k = "resize shrink height ${resizeAmount} px";
+            h = "resize shrink width ${resizeAmount} px";
+            l = "resize grow width ${resizeAmount} px";
+          };
+        };
+
+        # Waybar is used instead of sway's default bar
+        bars = [ ];
+      };
+    };
+
+  programs.waybar = {
+    enable = true;
+
+    systemd.enable = true;
+
+    # Main waybar configuration
+    settings = [
+      {
+        layer = "top";
+        position = "top";
+        height = 30;
+
+        modules-left = [
+          "sway/workspaces"
+          "sway/mode"
+        ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "load"
+          "memory"
+          "pulseaudio"
+          "network"
+          "tray"
+        ];
+
+        "sway/workspaces" = {
+          disable-scroll = true;
+          all-outputs = true;
+        };
+
+        "clock" = {
+          format = "{:%a %Y-%m-%d %H:%M}";
+        };
+
+        "load" = {
+          interval = 10;
+          format = "CPU: {load1}";
+          max-length = 10;
+        };
+
+        "memory" = {
+          interval = 30;
+          format = "MEM: {}%";
+          max-length = 10;
+        };
+
+        "pulseaudio" = {
+          format = "{volume}% {icon}";
+          format-muted = " Muted";
+          format-icons = {
+            headphone = "";
+            default = [
+              ""
+              ""
+            ];
+          };
+          onclick = "pavucontrol";
+        };
+
+        "network" = {
+          format-wifi = "{essid} ";
+          format-ethernet = "{ifname} ETH";
+          format-disconnected = "Disconnected ⚠️";
+        };
+
+        "tray" = {
+          spacing = 10;
+        };
+      }
+    ];
+
+    # CSS styling
+    style = ''
+      * {
+        font-family: "UbuntuMono Nerd Font", monospace;
+        font-size: 14px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      window#waybar {
+        background-color: #1e1e2e;
+        color: #cdd6f4;
+      }
+
+      #workspaces button {
+        padding: 0 2px;
+        margin: 0 2px;
+        border-radius: 6px;
+        background: transparent;
+        color: #cdd6f4;
+      }
+
+      #workspaces button.focused {
+        background: #89b4fa;
+        color: #1e1e2e;
+      }
+    '';
+  };
+
+  programs.wofi = {
+    enable = true;
+    settings = {
+      allow_markup = true;
+    };
+    style = ''
+      window {
+        margin: 0px;
+        border: 1px solid #7A8478;
+        background-color: #1E2326;
+      }
+
+      #input {
+        margin: 5px;
+        border: none;
+        color: #D3C6AA;
+        background-color: #272E33;
+      }
+
+      #inner-box {
+        margin: 5px;
+        border: none;
+        background-color: #1E2326;
+      }
+
+      #outer-box {
+        margin: 5px;
+        border: none;
+        background-color: #1E2326;
+      }
+
+      #scroll {
+        margin: 0px;
+        border: none;
+      }
+
+      #text {
+        margin: 5px;
+        border: none;
+        color: #D3C6AA;
+      }
+
+      #entry:selected {
+        background-color: #272E33;
+      }
+    '';
+  };
+}
