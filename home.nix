@@ -22,45 +22,18 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
+  # Install packages that should be available in the user environment
   home.packages = [
     pkgs.nerd-fonts.ubuntu-mono
     pkgs.optifine
     pkgs.prismlauncher
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
+  # Manage dotfiles - currently none configured
+  # Example: home.file.".screenrc".source = ./dotfiles/screenrc;
+  home.file = { };
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
-
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/arek/etc/profile.d/hm-session-vars.sh
-  #
+  # Environment variables
   home.sessionVariables = {
     EDITOR = "nvim";
   };
@@ -121,36 +94,36 @@
     '';
     bashrcExtra = ''
       cd() {
-          builtin cd "$@" && ls
+        builtin cd "$@" && ls
       }
 
       duck() {
         dir="."
-	if [ $# -gt 0 ]; then
-	  dir=$1
-	fi
+        if [ $# -gt 0 ]; then
+          dir=$1
+        fi
 
-	du -hac "$dir" 2>/dev/null | tail -n 1
+        du -hac "$dir" 2>/dev/null | tail -n 1
       }
 
       quack() {
-	# get all directories
-	mapfile -t dirs < <(find . -maxdepth 1 -type d)
-	longest=0
-	for dir in "''${dirs[@]}"; do
-	  if [ $longest -le ''${#dir} ]; then
-	   longest=''${#dir}
-	  fi
-	done
+        # get all directories
+        mapfile -t dirs < <(find . -maxdepth 1 -type d)
+        longest=0
+        for dir in "''${dirs[@]}"; do
+          if [ $longest -le ''${#dir} ]; then
+            longest=''${#dir}
+          fi
+        done
 
-	# min. number of spaces to populate
-	offset=4
+        # min. number of spaces to populate
+        offset=4
 
-	for dir in "''${dirs[@]}"; do 
-	  printf "$dir";
-	  printf "%*s" $((offset + longest - ''${#dir})) "";
-	  duck "$dir"
-	done
+        for dir in "''${dirs[@]}"; do
+          printf "$dir";
+          printf "%*s" $((offset + longest - ''${#dir})) "";
+          duck "$dir"
+        done
       }
     '';
   };
@@ -306,16 +279,13 @@
     in
     {
       enable = true;
-      # might be the culprit if issues arise...
-      extraOptions = [
-        "--unsupported-gpu"
-      ];
+      # Allow running on GPUs that may not be fully supported
+      extraOptions = [ "--unsupported-gpu" ];
 
       config = rec {
         modifier = "Mod1";
         terminal = "alacritty";
         startup = [
-          # { command = "alacritty"; }
           { command = "swaybg -i ${wallpaperLoc}"; }
         ];
 
@@ -370,8 +340,8 @@
           };
         };
 
-        bars = [
-        ];
+        # Waybar is used instead of sway's default bar
+        bars = [ ];
       };
     };
 
@@ -431,7 +401,7 @@
               ""
             ];
           };
-          onclick = "pavucontrol"; 
+          onclick = "pavucontrol";
         };
 
         "network" = {
@@ -479,49 +449,47 @@
     enable = true;
     settings = {
       allow_markup = true;
-      #width = 250;
     };
     style = ''
       window {
-      margin: 0px;
-      border: 1px solid #7A8478;
-      background-color: #1E2326;
+        margin: 0px;
+        border: 1px solid #7A8478;
+        background-color: #1E2326;
       }
 
       #input {
-      margin: 5px;
-      border: none;
-      color: #D3C6AA;
-      background-color: #272E33;
+        margin: 5px;
+        border: none;
+        color: #D3C6AA;
+        background-color: #272E33;
       }
 
       #inner-box {
-      margin: 5px;
-      border: none;
-      background-color: #1E2326;
+        margin: 5px;
+        border: none;
+        background-color: #1E2326;
       }
 
       #outer-box {
-      margin: 5px;
-      border: none;
-      background-color: #1E2326;
+        margin: 5px;
+        border: none;
+        background-color: #1E2326;
       }
 
       #scroll {
-      margin: 0px;
-      border: none;
+        margin: 0px;
+        border: none;
       }
 
       #text {
-      margin: 5px;
-      border: none;
-      color: #D3C6AA;
+        margin: 5px;
+        border: none;
+        color: #D3C6AA;
       }
 
       #entry:selected {
-      background-color: #272E33;
+        background-color: #272E33;
       }
     '';
-
   };
 }

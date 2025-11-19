@@ -2,12 +2,11 @@
   colorschemes.nightfox.enable = true;
 
   globals = {
-    mapleader = " "; 
+    mapleader = " ";
     maplocalleader = " ";
   };
 
   opts = {
-    # updatetime = 100;
     fileencoding = "utf-8";
     number = true;
     relativenumber = true;
@@ -15,8 +14,8 @@
     breakindent = true;
     undofile = true;
     signcolumn = "yes";
-    wrap = true; 
-    linebreak = true; 
+    wrap = true;
+    linebreak = true;
     textwidth = 0;
     timeoutlen = 300;
     splitbelow = true;
@@ -31,7 +30,7 @@
     inccommand = "split";
     cursorline = true;
     scrolloff = 8;
-  }; 
+  };
 
   diagnostic.settings = {
     virtual_text = {
