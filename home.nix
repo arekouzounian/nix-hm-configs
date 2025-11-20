@@ -29,6 +29,7 @@ in
     pkgs.nerd-fonts.ubuntu-mono
     pkgs.optifine
     pkgs.prismlauncher
+    pkgs.pdf4qt
   ];
 
   # Manage dotfiles - currently none configured
