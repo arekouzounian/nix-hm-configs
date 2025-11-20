@@ -1,12 +1,13 @@
-let 
-  # read all files
+let
+  # Read all files in the plugins directory
   files = builtins.readDir ./.;
-  # filter all .nix files
-  nixFiles = builtins.filter 
-  (name: name != "default.nix" && builtins.match ".*\\.nix" name != null) 
-  (builtins.attrNames files);
+  # Filter for .nix files, excluding default.nix
+  nixFiles = builtins.filter
+    (name: name != "default.nix" && builtins.match ".*\\.nix" name != null)
+    (builtins.attrNames files);
 
   imports = map (name: ./. + "/${name}") nixFiles;
-in {
+in
+{
   imports = imports;
 }

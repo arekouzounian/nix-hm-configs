@@ -1,11 +1,11 @@
 {
   plugins.treesitter = {
-    enable = true; 
-    nixvimInjections = true; 
+    enable = true;
+    nixvimInjections = true;
     settings = {
-      highlight.enable = true; 
-      indent.enable = true; 
-      autotag.enable = true; 
+      highlight.enable = true;
+      indent.enable = true;
+      autotag.enable = true;
       folding.enable = true;
       ensure_installed = [
         "bash"
@@ -16,8 +16,7 @@
         "nix"
         "go"
       ];
-      autoinstall = true; 
-      nixvimInjections = true;
+      autoinstall = true;
     };
   };
 }
