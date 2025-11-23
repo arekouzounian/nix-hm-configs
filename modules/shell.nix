@@ -10,6 +10,7 @@
       # Nix
       ccnix = "sudo $EDITOR /etc/nixos/configuration.nix";
       cchome = "$EDITOR $HOME/.config/home-manager/home.nix";
+      ccnvim = "$EDITOR $HOME/.config/home-manager/modules/neovim/";
       bflake = "sudo nixos-rebuild switch --flake /etc/nixos#nixos-tower";
       bhome = "home-manager switch && source ~/.bashrc";
 

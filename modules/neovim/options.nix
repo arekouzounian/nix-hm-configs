@@ -15,6 +15,7 @@
     undofile = true;
     signcolumn = "yes";
     wrap = true;
+    columns = 100;
     linebreak = true;
     textwidth = 0;
     timeoutlen = 300;
