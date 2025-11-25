@@ -1,5 +1,5 @@
 {
-  colorschemes.nightfox.enable = true;
+  colorschemes.oxocarbon.enable = true;
 
   globals = {
     mapleader = " ";
@@ -11,11 +11,12 @@
     number = true;
     relativenumber = true;
     shiftwidth = 2;
+    tabstop = 2;
+    expandtab = true;
     breakindent = true;
     undofile = true;
     signcolumn = "yes";
     wrap = true;
-    columns = 100;
     linebreak = true;
     textwidth = 0;
     timeoutlen = 300;
@@ -31,21 +32,23 @@
     inccommand = "split";
     cursorline = true;
     scrolloff = 8;
+
+    clipboard = {
+      providers.wl-copy.enable = true;
+      register = "wl-copy";
+    };
   };
 
   diagnostic.settings = {
-    virtual_text = {
-      wrap = true;
-    };
-    signs = {
-      wrap = true;
-    };
-    underline = {
-      wrap = true;
-    };
+    virtual_text = false;
+    virtual_lines = true;
+    signs = true;
+    underline = true;
     float = {
       wrap = true;
+      max_width = 80;
       source = "always";
+      border = "rounded";
     };
   };
 }

@@ -5,6 +5,11 @@
       lspServersToEnable = "all";
     };
 
+    lsp-lines = {
+      enable = true;
+      autoLoad = true;
+    };
+
     lsp = {
       enable = true;
       inlayHints = true;
