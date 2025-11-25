@@ -40,8 +40,12 @@
   };
 
   diagnostic.settings = {
-    virtual_text = false;
-    virtual_lines = true;
+    virtual_text = {
+      severity.__raw = "vim.diagnostic.severity.WARN";
+    };
+    virtual_lines = {
+      severity.__raw = "vim.diagnostic.severity.ERROR";
+    };
     signs = true;
     underline = true;
     float = {
