@@ -18,7 +18,7 @@
       };
 
       font = {
-        size = 12;
+        size = 14;
 
         normal = {
           family = "PapyrusMono";

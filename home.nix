@@ -47,6 +47,10 @@ in
     ./modules
   ];
 
+  # fonts
+  fonts.fontconfig.enable = true;
+  home.file.".local/share/fonts".source = ./fonts;
+
   # GTK and cursor theme
   gtk.enable = true;
   home.pointerCursor =
