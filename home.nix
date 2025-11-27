@@ -48,8 +48,10 @@ in
   ];
 
   # fonts
-  fonts.fontconfig.enable = true;
   home.file.".local/share/fonts".source = ./fonts;
+  fonts = {
+    fontconfig.enable = true;
+  };
 
   # GTK and cursor theme
   gtk.enable = true;

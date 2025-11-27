@@ -10,6 +10,11 @@
     environment = {
     };
 
+    font = {
+      name = "Fantasque Sans Mono";
+      size = 14;
+    };
+
     shellIntegration = {
       enableBashIntegration = true;
       enableZshIntegration = true;
@@ -20,6 +25,14 @@
     };
 
     keybindings = {
+    };
+
+    quickAccessTerminalConfig = {
+      background_opacity = 0.85;
+      hidden_on_focus_loss = false;
+      start_as_hidden = false;
+      edge = "top";
+      lines = 25;
     };
 
     extraConfig = '''';

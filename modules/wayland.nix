@@ -31,7 +31,7 @@ in
 
     config = rec {
       modifier = userConfig.sway.modKey;
-      terminal = "alacritty";
+      terminal = "kitty";
       startup = [
         { command = "swaybg -i ${wallpaperLoc}"; }
       ];
@@ -48,9 +48,9 @@ in
       ];
 
       fonts = {
-        names = [ "UbuntuMono Nerd Font" ];
-        style = "Bold";
-        size = 11.0;
+        names = [ "Papyrus" ];
+        style = "Normal";
+        size = 12.0;
       };
 
       gaps = {
@@ -69,6 +69,7 @@ in
           "${modifier}+b" = "splith";
           "${modifier}+Shift+s" =
             "exec --no-startup-id grim -g \"$(slurp)\" ${screenshotDir}/`${dateFormat}`.png";
+          "${modifier}+t" = "exec kitten quick_access_terminal";
         };
 
       modes = {
@@ -164,8 +165,9 @@ in
 
     style = ''
       * {
-        font-family: "UbuntuMono Nerd Font", monospace;
-        font-size: 14px;
+        font-family: "Papyrus";
+        font-size: 16px;
+        font-weight: bold;
         padding-left: 5px;
         padding-right: 5px;
       }
