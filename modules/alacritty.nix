@@ -21,24 +21,24 @@
         size = 12;
 
         normal = {
-          family = "UbuntuMono Nerd Font";
+          family = "PapyrusMono";
           style = "Regular";
         };
 
-        bold = {
-          family = "UbuntuMono Nerd Font";
-          style = "Bold";
-        };
+        # bold = {
+        #   family = "UbuntuMono Nerd Font";
+        #   style = "Bold";
+        # };
 
-        italic = {
-          family = "UbuntuMono Nerd Font";
-          style = "Italic";
-        };
+        # italic = {
+        #   family = "UbuntuMono Nerd Font";
+        #   style = "Italic";
+        # };
 
-        bold_italic = {
-          family = "UbuntuMono Nerd Font";
-          style = "Bold Italic";
-        };
+        # bold_italic = {
+        #   family = "UbuntuMono Nerd Font";
+        #   style = "Bold Italic";
+        # };
       };
 
       keyboard.bindings = [
