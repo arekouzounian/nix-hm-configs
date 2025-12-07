@@ -4,7 +4,7 @@
     enable = true;
     enableGitIntegration = true;
     # https://github.com/kovidgoyal/kitty-themes/tree/master/themes
-    themeFile = "gruvbox-dark-soft";
+    themeFile = "ANSI-87";
 
     # Environment variables
     environment = {
@@ -22,14 +22,16 @@
 
     # see https://sw.kovidgoyal.net/kitty/conf.html
     settings = {
+      backround_image = "~/Documents/wallpapers/papyrus.png";
     };
 
     keybindings = {
+      "ctrl+q" = "close_window";
     };
 
     quickAccessTerminalConfig = {
       background_opacity = 0.85;
-      hidden_on_focus_loss = false;
+      hidden_on_focus_loss = true;
       start_as_hidden = false;
       edge = "top";
       lines = 25;

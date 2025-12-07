@@ -31,6 +31,7 @@ in
     pkgs.prismlauncher
     pkgs.pdf4qt
     pkgs.fontforge-gtk
+    pkgs.perf
   ];
 
   # Manage dotfiles - currently none configured

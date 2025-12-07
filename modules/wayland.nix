@@ -2,9 +2,7 @@
 let
   userConfig = import ../config.nix;
   wallpaperLoc = userConfig.paths.wallpaper;
-  disp1 = userConfig.displays.primary;
-  disp2 = userConfig.displays.secondary;
-  resizeAmount = userConfig.sway.resizeAmount;
+  disp1 = userConfig.displays.primary; disp2 = userConfig.displays.secondary; resizeAmount = userConfig.sway.resizeAmount;
 in
 {
   # Swaylock screen locking
@@ -67,9 +65,7 @@ in
         lib.mkOptionDefault {
           "${modifier}+space" = "exec wofi --show=run";
           "${modifier}+b" = "splith";
-          "${modifier}+Shift+s" =
-            "exec --no-startup-id grim -g \"$(slurp)\" ${screenshotDir}/`${dateFormat}`.png";
-          "${modifier}+t" = "exec kitten quick_access_terminal";
+          "${modifier}+Shift+s" = "exec --no-startup-id grim -g \"$(slurp)\" ${screenshotDir}/`${dateFormat}`.png";
         };
 
       modes = {

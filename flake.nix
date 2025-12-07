@@ -2,12 +2,11 @@
   description = "Home Manager configuration for declarative dotfile management";
 
   inputs = {
-    # Use nixpkgs unstable for latest packages
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Home Manager for dotfile management
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -1,5 +1,5 @@
 {
-  colorschemes.oxocarbon.enable = true;
+  colorschemes.cyberdream.enable = true;
 
   globals = {
     mapleader = " ";
@@ -18,6 +18,7 @@
     signcolumn = "yes";
     wrap = true;
     linebreak = true;
+    colorcolumn = "80";
     textwidth = 0;
     timeoutlen = 300;
     splitbelow = true;

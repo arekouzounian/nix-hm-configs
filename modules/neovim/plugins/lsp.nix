@@ -16,6 +16,7 @@
 
       servers = {
         clangd.enable = true;
+        pylsp.enable = true;
         rust_analyzer = {
           enable = true;
           installCargo = true;

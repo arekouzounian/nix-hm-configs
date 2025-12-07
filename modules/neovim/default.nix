@@ -7,6 +7,7 @@
   programs.nixvim = {
     imports = [
       ./options.nix
+      ./raw-lua.nix
       ./plugins
     ];
     enable = true;
