@@ -32,6 +32,8 @@ in
     pkgs.pdf4qt
     pkgs.fontforge-gtk
     pkgs.perf
+    pkgs.obsidian
+    pkgs.claude-code # oh boy
   ];
 
   # Manage dotfiles - currently none configured
@@ -53,6 +55,12 @@ in
   fonts = {
     fontconfig.enable = true;
   };
+
+  # quick powernap script
+  # home.file.".nix-profile/bin/powernap" = {
+  #   text = ''swaylock && systemctl suspend'';
+  #   executable = true;
+  # };
 
   # GTK and cursor theme
   gtk.enable = true;

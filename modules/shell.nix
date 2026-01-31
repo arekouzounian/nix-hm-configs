@@ -12,6 +12,7 @@
       cchome = "$EDITOR $HOME/.config/home-manager/home.nix";
       ccnvim = "$EDITOR $HOME/.config/home-manager/modules/neovim/";
       cdhm = "cd $HOME/.config/home-manager";
+      v = "nvim";
 
       bflake = "sudo nixos-rebuild switch --flake /etc/nixos#nixos-tower";
       bhome = "home-manager switch && source ~/.bashrc";
