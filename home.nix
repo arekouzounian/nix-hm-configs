@@ -33,7 +33,9 @@ in
     pkgs.fontforge-gtk
     pkgs.perf
     pkgs.obsidian
-    pkgs.claude-code # oh boy
+    pkgs.fzf
+    pkgs.slack
+    pkgs.hugo
   ];
 
   # Manage dotfiles - currently none configured
@@ -57,10 +59,10 @@ in
   };
 
   # quick powernap script
-  # home.file.".nix-profile/bin/powernap" = {
-  #   text = ''swaylock && systemctl suspend'';
-  #   executable = true;
-  # };
+  home.file.".local/bin/powernap" = {
+    text = ''swaylock && systemctl suspend'';
+    executable = true;
+  };
 
   # GTK and cursor theme
   gtk.enable = true;
@@ -88,4 +90,17 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    extraPackages = with pkgs; [
+      ripgrep
+      fd
+      rust-analyzer
+      lua-language-server
+      gopls
+      stylua
+    ];
+  };
 }

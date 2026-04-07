@@ -12,6 +12,7 @@
       cchome = "$EDITOR $HOME/.config/home-manager/home.nix";
       ccnvim = "$EDITOR $HOME/.config/home-manager/modules/neovim/";
       cdhm = "cd $HOME/.config/home-manager";
+      vi = "nvim";
       v = "nvim";
 
       bflake = "sudo nixos-rebuild switch --flake /etc/nixos#nixos-tower";
@@ -61,6 +62,9 @@
           duck "$dir"
         done
       }
+
+      export PATH=$PATH:$HOME/.local/bin
+      export PATH=$PATH:$HOME/.cargo/bin
     '';
   };
 
