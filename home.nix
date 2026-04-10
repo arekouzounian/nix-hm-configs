@@ -36,6 +36,7 @@ in
     pkgs.fzf
     pkgs.slack
     pkgs.hugo
+    pkgs.keymapp
   ];
 
   # Manage dotfiles - currently none configured
