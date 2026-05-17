@@ -37,6 +37,7 @@ in
     pkgs.slack
     pkgs.hugo
     pkgs.keymapp
+    pkgs.jq
   ];
 
   # Manage dotfiles - currently none configured

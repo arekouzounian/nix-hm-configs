@@ -1,8 +1,15 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   userConfig = import ../config.nix;
   wallpaperLoc = userConfig.paths.wallpaper;
-  disp1 = userConfig.displays.primary; disp2 = userConfig.displays.secondary; resizeAmount = userConfig.sway.resizeAmount;
+  disp1 = userConfig.displays.primary;
+  disp2 = userConfig.displays.secondary;
+  resizeAmount = userConfig.sway.resizeAmount;
 in
 {
   # Swaylock screen locking
@@ -65,23 +72,26 @@ in
         lib.mkOptionDefault {
           "${modifier}+space" = "exec wofi --show=run";
           "${modifier}+b" = "splith";
-          "${modifier}+Shift+s" = "exec --no-startup-id grim -g \"$(slurp)\" ${screenshotDir}/`${dateFormat}`.png";
+          "${modifier}+Shift+s" =
+            "exec --no-startup-id grim -g \"$(slurp)\" ${screenshotDir}/`${dateFormat}`.png";
+          "${modifier}+Shift+equal" = "resize grow width 40px";
+          "${modifier}+minus" = "resize shrink width 40px";
         };
 
       modes = {
-        resize = {
-          Return = "mode default";
-          Escape = "mode default";
-          Down = "resize grow height ${resizeAmount} px";
-          Left = "resize shrink width ${resizeAmount} px";
-          Right = "resize grow width ${resizeAmount} px";
-          Up = "resize shrink height ${resizeAmount} px";
+        # resize = {
+        #   Return = "mode default";
+        #   Escape = "mode default";
+        #   Down = "resize grow height ${resizeAmount} px";
+        #   Left = "resize shrink width ${resizeAmount} px";
+        #   Right = "resize grow width ${resizeAmount} px";
+        #   Up = "resize shrink height ${resizeAmount} px";
 
-          j = "resize grow height ${resizeAmount} px";
-          k = "resize shrink height ${resizeAmount} px";
-          h = "resize shrink width ${resizeAmount} px";
-          l = "resize grow width ${resizeAmount} px";
-        };
+        #   j = "resize grow height ${resizeAmount} px";
+        #   k = "resize shrink height ${resizeAmount} px";
+        #   h = "resize shrink width ${resizeAmount} px";
+        #   l = "resize grow width ${resizeAmount} px";
+        # };
       };
 
       # Waybar is used instead of sway's default bar
