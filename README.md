@@ -4,41 +4,19 @@ Personal [Home Manager](https://github.com/nix-community/home-manager) configura
 
 ## Overview
 
-This repository contains my declarative system configuration managed with Nix Home Manager. It includes configurations for:
-
-- **Neovim** - Configured using [nixvim](https://github.com/nix-community/nixvim) with LSP, treesitter, and completion
+This is my main home manager config on NixOS. Main configs:
 - **Sway** - Wayland compositor with custom keybindings and workspace setup
 - **Shell** - Bash with custom functions, aliases, and Starship prompt
-- **Terminal** - Alacritty with custom theming and keybindings
 - **Status bar** - Waybar with system monitoring widgets
 - **Application launcher** - Wofi with custom styling
 - **Screen locking** - Swaylock with custom configuration
 
-## Structure
+I also use Vim, but configure that separately. I tried NixVim but it's just too much machinery and poor DX.
 
-```
-.
-├── flake.nix              # Flake definition with inputs and outputs
-├── config.nix             # User-specific configuration (customize this!)
-├── home.nix               # Main home configuration (user settings, packages, GTK)
-└── modules/
-    ├── default.nix        # Module entry point (imports all modules)
-    ├── shell.nix          # Bash and Starship prompt configuration
-    ├── alacritty.nix      # Alacritty terminal emulator configuration
-    ├── wayland.nix        # Sway, Waybar, Wofi, and Swaylock configuration
-    └── neovim/            # Neovim configuration
-        ├── default.nix    # Neovim setup
-        ├── options.nix    # Editor options and settings
-        └── plugins/       # Plugin configurations
-            ├── default.nix    # Auto-imports all plugins
-            ├── cmp.nix        # Completion plugin
-            ├── lsp.nix        # Language server setup
-            ├── lualine.nix    # Status line
-            └── treesitter.nix # Syntax highlighting
-```
+I don't recommend you try to recreate this setup because it's not optimized for public consumption or anything like that. But if you want an AI-generated description on how to install, see below.
+
 
 ## Prerequisites
-
 - [Nix](https://nixos.org/download.html) with flakes enabled
 - Git
 
@@ -138,73 +116,18 @@ Neovim is configured using nixvim. To add plugins or change settings:
 - Edit `modules/neovim/plugins/lsp.nix` to add language servers
 
 ### Window Manager (Sway)
-
 Sway configuration is in `home.nix` under `wayland.windowManager.sway`. Key features:
 
 - Mod key: `Alt` (Mod1)
-- Terminal: Alacritty
+- Terminal: Kitty
 - App launcher: Wofi (Mod+Space)
 - Screenshots: Mod+Shift+S
 
-## Key Bindings
-
-### Sway
-
-- `Mod+Enter` - Open terminal
-- `Mod+Space` - Application launcher
-- `Mod+Shift+Q` - Close window
-- `Mod+Shift+S` - Take screenshot
-- `Mod+R` - Resize mode
-
-### Alacritty
-
-- `Ctrl+N` - New window
-- `Ctrl+Enter` - Toggle fullscreen
-- `Ctrl+Q` - Quit
-
-## Troubleshooting
-
-### Nix command not found
-
-Make sure Nix is installed and in your PATH:
-
-```bash
-. ~/.nix-profile/etc/profile.d/nix.sh
-```
-
-### Flakes not enabled
-
-Enable experimental features as described in Prerequisites.
-
-### Build errors
-
-Try updating flake inputs:
-
-```bash
-nix flake update
-```
 
 ## Contributing
-
-This is a personal configuration repository, but suggestions and improvements are welcome! Feel free to:
-
-- Open an issue for bugs or suggestions
-- Submit a pull request with improvements
-- Use this as a template for your own configurations
-
-## License
-
-MIT License - feel free to use and modify for your own configurations.
-
-## Acknowledgments
-
-- [Nix](https://nixos.org/) - The package manager and build system
-- [Home Manager](https://github.com/nix-community/home-manager) - Dotfile management
-- [nixvim](https://github.com/nix-community/nixvim) - Neovim configuration in Nix
-- [LudovicDeMatteis](https://github.com/LudovicDeMatteis/.dotfiles) - Neovim module structure inspiration
+This is a personal configuration repository. If you want to suggest something, why? But also, sure. Send in a pull request, I would actually be very excited.
 
 ## Resources
-
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
 - [Home Manager Options](https://nix-community.github.io/home-manager/options.html)
 - [nixvim Documentation](https://nix-community.github.io/nixvim/)
