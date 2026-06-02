@@ -11,7 +11,7 @@
       ccnix = "sudo $EDITOR /etc/nixos/configuration.nix";
       cchome = "$EDITOR $HOME/.config/home-manager/home.nix";
       ccnvim = "$EDITOR $HOME/.config/home-manager/modules/neovim/";
-      cdhm = "cd $HOME/.config/home-manager";
+      cdhm = "pushd $HOME/.config/home-manager";
       vi = "nvim";
       v = "nvim";
 

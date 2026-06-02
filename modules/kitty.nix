@@ -23,6 +23,7 @@
     # see https://sw.kovidgoyal.net/kitty/conf.html
     settings = {
       backround_image = "~/Documents/wallpapers/papyrus.png";
+      allow_remote_control = "yes";
     };
 
     keybindings = {

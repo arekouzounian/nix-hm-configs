@@ -27,8 +27,6 @@ in
   # Install packages that should be available in the user environment
   home.packages = [
     pkgs.nerd-fonts.ubuntu-mono
-    pkgs.optifine
-    pkgs.prismlauncher
     pkgs.pdf4qt
     pkgs.fontforge-gtk
     pkgs.perf
@@ -38,6 +36,10 @@ in
     pkgs.hugo
     pkgs.keymapp
     pkgs.jq
+    pkgs.dig
+    pkgs.claude-code
+    pkgs.statix
+    pkgs.wf-recorder
   ];
 
   # Manage dotfiles - currently none configured
