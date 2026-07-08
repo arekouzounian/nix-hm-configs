@@ -6,5 +6,6 @@
     ./wayland.nix
     ./kitty.nix
     ./opencode.nix
+    ./tmux.nix
   ];
 }

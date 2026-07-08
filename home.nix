@@ -40,6 +40,7 @@ in
     pkgs.claude-code
     pkgs.statix
     pkgs.wf-recorder
+    pkgs.cloc
   ];
 
   # Manage dotfiles - currently none configured
@@ -64,7 +65,7 @@ in
 
   # quick powernap script
   home.file.".local/bin/powernap" = {
-    text = ''swaylock && systemctl suspend'';
+    text = "swaylock && systemctl suspend";
     executable = true;
   };
 

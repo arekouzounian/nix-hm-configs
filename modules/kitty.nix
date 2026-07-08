@@ -12,7 +12,7 @@
 
     font = {
       name = "Fantasque Sans Mono";
-      size = 14;
+      size = 12;
     };
 
     shellIntegration = {
@@ -38,6 +38,6 @@
       lines = 25;
     };
 
-    extraConfig = '''';
+    extraConfig = "";
   };
 }

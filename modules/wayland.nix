@@ -74,7 +74,7 @@ in
           "${modifier}+b" = "splith";
           "${modifier}+Shift+s" =
             "exec --no-startup-id grim -g \"$(slurp)\" ${screenshotDir}/`${dateFormat}`.png";
-          "${modifier}+Shift+equal" = "resize grow width 40px";
+          "${modifier}+equal" = "resize grow width 40px";
           "${modifier}+minus" = "resize shrink width 40px";
         };
 
