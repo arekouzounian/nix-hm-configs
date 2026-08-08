@@ -28,6 +28,26 @@ in
     };
   };
 
+  # Mako notification daemon
+  services.mako = {
+    enable = true;
+    settings = {
+      font = "Papyrus 12";
+      background-color = "#1e1e2e";
+      text-color = "#cdd6f4";
+      border-color = "#89b4fa";
+      border-size = 2;
+      border-radius = 8;
+      default-timeout = 5000;
+      anchor = "top-right";
+
+      # if it gets too annoying
+      # "summary=\"Claude Code\"" = {
+      #   invisible = 1;
+      # };
+    };
+  };
+
   # Sway window manager
   wayland.windowManager.sway = {
     enable = true;
