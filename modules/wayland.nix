@@ -96,6 +96,8 @@ in
             "exec --no-startup-id grim -g \"$(slurp)\" ${screenshotDir}/`${dateFormat}`.png";
           "${modifier}+equal" = "resize grow width 40px";
           "${modifier}+minus" = "resize shrink width 40px";
+          "${modifier}+Ctrl+Shift+minus" = "move scratchpad";
+          "${modifier}+Ctrl+minus" = "scratchpad show";
         };
 
       modes = {
@@ -138,6 +140,7 @@ in
         modules-right = [
           "load"
           "memory"
+          "custom/gpu"
           "pulseaudio"
           "network"
           "tray"
@@ -162,6 +165,13 @@ in
           interval = 30;
           format = "MEM: {}%";
           max-length = 10;
+        };
+
+        "custom/gpu" = {
+          interval = 5;
+          exec = "nvidia-smi --query-gpu=utilization.gpu,memory.used,memory.total --format=csv,noheader,nounits | awk -F', ' '{ printf \"GPU: %d%% VRAM: %d%%\", $1, ($2/$3)*100 }'";
+          format = "{}";
+          max-length = 24;
         };
 
         "pulseaudio" = {

@@ -24,6 +24,9 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  # for nrfconnect, need to accept the JLink license
+  nixpkgs.config.segger-jlink.acceptLicense = true;
+
   # Install packages that should be available in the user environment
   home.packages = [
     pkgs.nerd-fonts.ubuntu-mono
@@ -37,10 +40,16 @@ in
     pkgs.keymapp
     pkgs.jq
     pkgs.dig
-    pkgs.claude-code
+    pkgs.claude-code # ...
     pkgs.statix
     pkgs.wf-recorder
     pkgs.cloc
+    pkgs.time # $(which time)
+
+    # for embedded stuff!
+    pkgs.nrfconnect
+    pkgs.nrfutil
+    pkgs.probe-rs-tools
   ];
 
   # Manage dotfiles - currently none configured
